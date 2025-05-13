@@ -1,16 +1,81 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-	<link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alphabetical Article Sorter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            margin: 0;
+            background-image: url('https://your-image-link.jpg'); 
+            background-size: cover;
+            background-position: center;
+            color: white;
+            height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        #band {
+            list-style-type: disc; /* Bullets for list items */
+            padding-left: 20px;
+            font-size: 18px;
+            line-height: 2;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            border-radius: 10px;
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        li {
+            padding: 5px 0;
+        }
+
+        li:hover {
+            color: #f0c420;
+            cursor: pointer;
+        }
+    </style>
 </head>
-
 <body>
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
-</script>
+    <h1>Sorted Band Names</h1>
+    <ul id="band"></ul>
 
+    <script>
+        const bands = [
+            'The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 
+            'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 
+            'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 
+            'An Old Dog'
+        ];
+
+        // Function to remove "a", "an", and "the" from the start of a string
+        function removeArticles(bandName) {
+            return bandName.replace(/^(a|an|the)\s+/i, '');
+        }
+
+        // Sort the bands array alphabetically while ignoring the articles
+        const sortedBands = bands.sort((a, b) => {
+            const bandA = removeArticles(a).toLowerCase();
+            const bandB = removeArticles(b).toLowerCase();
+            return bandA.localeCompare(bandB);
+        });
+
+        // Insert the sorted bands into the list
+        const bandList = document.getElementById('band');
+        sortedBands.forEach(band => {
+            const li = document.createElement('li');
+            li.textContent = band;
+            bandList.appendChild(li);
+        });
+    </script>
 </body>
-
 </html>
