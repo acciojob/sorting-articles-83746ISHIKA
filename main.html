@@ -6,71 +6,67 @@
     <title>Alphabetical Article Sorter</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
             margin: 0;
-            background-image: url('https://your-image-link.jpg'); 
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb') no-repeat center center fixed;
             background-size: cover;
-            background-position: center;
-            color: white;
-            height: 100vh;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
         h1 {
             text-align: center;
-            color: #fff;
-            font-size: 36px;
             margin-bottom: 20px;
         }
 
-        #band {
-            list-style-type: disc; /* Bullets for list items */
+        ul {
+            list-style-type: square;
             padding-left: 20px;
-            font-size: 18px;
-            line-height: 2;
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-            border-radius: 10px;
-            max-width: 600px;
-            margin: auto;
-            padding: 20px;
         }
 
         li {
-            padding: 5px 0;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
         }
 
-        li:hover {
-            color: #f0c420;
-            cursor: pointer;
+        li:last-child {
+            border-bottom: none;
         }
     </style>
 </head>
 <body>
-    <h1>Sorted Band Names</h1>
-    <ul id="band"></ul>
+    <div class="container">
+        <h1>Band List</h1>
+        <ul id="bands">
+            <!-- Bands will be populated here -->
+        </ul>
+    </div>
 
     <script>
         const bands = [
-            'The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 
-            'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 
-            'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 
-            'An Old Dog'
+            'The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil',
+            'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State',
+            'We Came as Romans', 'Counterparts', 'Oh, Sleeper',
+            'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'
         ];
 
-        // Function to remove "a", "an", and "the" from the start of a string
-        function removeArticles(bandName) {
-            return bandName.replace(/^(a|an|the)\s+/i, '');
+        function cleanBandName(name) {
+            return name.replace(/^(a |an |the )/i, '').trim();
         }
 
-        // Sort the bands array alphabetically while ignoring the articles
         const sortedBands = bands.sort((a, b) => {
-            const bandA = removeArticles(a).toLowerCase();
-            const bandB = removeArticles(b).toLowerCase();
-            return bandA.localeCompare(bandB);
+            return cleanBandName(a).localeCompare(cleanBandName(b));
         });
 
-        // Insert the sorted bands into the list
-        const bandList = document.getElementById('band');
+        const bandList = document.getElementById('bands');
         sortedBands.forEach(band => {
             const li = document.createElement('li');
             li.textContent = band;
